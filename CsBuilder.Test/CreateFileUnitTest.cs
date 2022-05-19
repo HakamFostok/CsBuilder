@@ -1,6 +1,6 @@
 namespace CsBuilder.Test;
 
-public class UnitTest1
+public class CreateFileUnitTest
 {
     [Fact]
     public void CreateSimpleFile()

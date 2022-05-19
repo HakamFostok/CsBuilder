@@ -1,4 +1,6 @@
-﻿namespace CsBuilder;
+﻿using System.CodeDom.Compiler;
+
+namespace CsBuilder;
 
 public sealed class CsFileBuilder : ICsFileBuilder
 {
@@ -30,7 +32,7 @@ public sealed class CsFileBuilder : ICsFileBuilder
             return this;
 
         indentedTextWriter.WriteLine($"namespace {namespaceName}");
-        indentedTextWriter.GoOneLevelInside();
+        GoOneLevelInside();
         return this;
     }
 
@@ -47,7 +49,7 @@ public sealed class CsFileBuilder : ICsFileBuilder
     public ICsFileBuilder AddStatementAndStartBlock(string line)
     {
         indentedTextWriter.WriteLine(line);
-        indentedTextWriter.GoOneLevelInside();
+        GoOneLevelInside();
 
         return this;
     }
@@ -78,7 +80,7 @@ public sealed class CsFileBuilder : ICsFileBuilder
 
     public ICsFileBuilder EndBlock()
     {
-        indentedTextWriter.GoOneLevelOutside();
+        GoOneLevelOutside();
         return this;
     }
 
@@ -87,7 +89,7 @@ public sealed class CsFileBuilder : ICsFileBuilder
         if (isFileScoped)
             return this;
 
-        indentedTextWriter.GoOneLevelOutside();
+        GoOneLevelOutside();
         return this;
     }
 
@@ -95,7 +97,7 @@ public sealed class CsFileBuilder : ICsFileBuilder
     {
         AddStatementAndStartBlock($"if ({condition})");
         AddStatements(line);
-        indentedTextWriter.GoOneLevelOutside();
+        GoOneLevelOutside();
 
         return this;
     }
@@ -110,7 +112,19 @@ public sealed class CsFileBuilder : ICsFileBuilder
                         "// </auto-generated>",
                         "//------------------------------------------------------------------------------");
         return this;
-    }    
+    }
+
+    private void GoOneLevelInside()
+    {
+        indentedTextWriter.WriteLine("{");
+        indentedTextWriter.Indent++;
+    }
+
+    private void GoOneLevelOutside()
+    {
+        indentedTextWriter.Indent--;
+        indentedTextWriter.WriteLine("}");
+    }
     
     public string Build() =>
         stringWriter.ToString();

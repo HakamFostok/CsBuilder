@@ -1,6 +1,4 @@
-﻿using System.CodeDom.Compiler;
-
-namespace CsBuilder;
+﻿namespace CsBuilder;
 
 internal static class IndentedTextWriterExtension
 {

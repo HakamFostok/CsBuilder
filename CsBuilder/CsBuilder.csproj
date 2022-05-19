@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Using Include="System.CodeDom.Compiler"/>
+		<Using Include="System.CodeDom.Compiler" />
 	</ItemGroup>
-	
+
 </Project>

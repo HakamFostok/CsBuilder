@@ -42,6 +42,5 @@ public class UnitTest1
                .EndNamespace();
 
         string file = builder.Build();
-        Console.WriteLine(file);
     }
 }

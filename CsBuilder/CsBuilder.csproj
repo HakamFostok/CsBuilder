@@ -6,9 +6,9 @@
 		<Nullable>enable</Nullable>
 		<PackageId>CsFactory</PackageId>
 		<LangVersion>Latest</LangVersion>
-		<Description>A source generator for creating best-practice IDisposable implementation using a [Disposable] attribute</Description>
-		<Version>1.1.0</Version>
-		<PackageVersion>1.1.0</PackageVersion>
+		<Description>A source generator for adding C# dynamically for source generators.</Description>
+		<Version>1.2.0</Version>
+		<PackageVersion>1.2.0</PackageVersion>
 		<AssemblyVersion>1.1.0</AssemblyVersion>
 	</PropertyGroup>
 

@@ -1,6 +1,4 @@
-﻿using System.CodeDom.Compiler;
-
-namespace CsBuilder;
+﻿namespace CsBuilder;
 
 public sealed class CsFileBuilder : ICsFileBuilder
 {
@@ -57,9 +55,19 @@ public sealed class CsFileBuilder : ICsFileBuilder
     public ICsFileBuilder AddStatements(params string[] lines)
     {
         foreach (string line in lines)
-        {
             indentedTextWriter.WriteLine(line);
-        }
+
+        return this;
+    }
+    
+    public ICsFileBuilder AddStatementsIf(bool condition, params string[] lines)
+    {
+        if (condition is false)
+            return this;
+        
+        foreach (string line in lines)
+            indentedTextWriter.WriteLine(line);
+        
         return this;
     }
 
@@ -93,10 +101,10 @@ public sealed class CsFileBuilder : ICsFileBuilder
         return this;
     }
 
-    public ICsFileBuilder AddOneLineIf(string condition, string line)
+    public ICsFileBuilder AddIfBlock(string condition, params string[] lines)
     {
         AddStatementAndStartBlock($"if ({condition})");
-        AddStatements(line);
+        AddStatements(lines);
         GoOneLevelOutside();
 
         return this;
@@ -125,9 +133,14 @@ public sealed class CsFileBuilder : ICsFileBuilder
         indentedTextWriter.Indent--;
         indentedTextWriter.WriteLine("}");
     }
-    
+
     public string Build() =>
         stringWriter.ToString();
+
+    public override string ToString()
+    {
+        return indentedTextWriter.ToString();
+    }
     
     public void Dispose()
     {
